@@ -79,7 +79,10 @@ class PyLyrics:
 	def getLyrics(singer, song):
 		#Replace spaces with _
 		singer = singer.replace(' ', '_')
-		song = song.name.replace(' ', '_')
+		if ( isinstance(song, str) ):
+			song = song.replace(' ', '_')
+		elif ( isinstance(song, Track) ):
+			song = song.name.replace(' ', '_')
 		r = requests.get('http://lyrics.wikia.com/{0}:{1}'.format(singer, song))
 		s = BeautifulSoup(r.text, 'html.parser')
 		#Get main lyrics holder
